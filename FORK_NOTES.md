@@ -1,24 +1,24 @@
-# Fork notes
+# Fork 说明
 
-This is a sanitized public fork snapshot of a Grok2API deployment used behind a New API gateway.
+这是 Grok2API 部署改造版的已脱敏公开快照，通常配合 New API 中转站作为独立 Grok 上游使用。
 
-Local changes in this fork include:
+本 fork 的本地改动包括：
 
-- Console.x.ai SSO model support
-- Grok 4.20 multi-agent model aliases
-- SSO token pool selection and cooldown handling
-- retry behavior for token-scoped 429 failures
-- tests for console retry and SSO token extraction behavior
+- Console.x.ai SSO 模型支持
+- Grok 4.20 multi-agent 模型别名
+- SSO token 池选择和冷却处理
+- token 级 429 失败后的重试行为
+- Console 重试与 SSO token 提取测试
 
-## Not included
+## 未包含内容
 
-The following runtime files are intentionally excluded and must never be committed:
+以下运行时文件已被排除，不能提交到公开仓库：
 
 - `data/token.json`
 - `data/setting.toml`
 - `data/temp/`
 - `logs/`
-- generated images/videos
-- local backup files such as `*.bak-*`
+- 生成的图片和视频
+- `*.bak-*` 等本地备份文件
 
-Create runtime data locally through the application UI or your deployment automation.
+运行时数据请通过管理后台或部署脚本在服务器本地创建。

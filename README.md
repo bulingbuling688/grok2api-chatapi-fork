@@ -1,5 +1,17 @@
 # Grok2API
 
+这是 `bulingbuling688/grok2api-chatapi-fork` 的已脱敏公开快照，来源于云机上的 Grok2API 本地改造版。
+
+本 fork 主要改动：
+
+- 支持 Console.x.ai SSO 模型
+- 增加 Grok 4.20 multi-agent 系列模型别名
+- 调整 SSO token 池选择、轮询和冷却逻辑
+- 对 token 级 429 失败增加重试处理
+- 增加 Console 重试和 SSO 提取相关测试
+
+本仓库不包含运行时敏感数据：`data/token.json`、`data/setting.toml`、`data/temp/`、`logs/`、生成的图片/视频和本地备份文件都已排除。
+
 基于 **FastAPI** 的 Grok2API，适配最新 Web 调用格式，支持流式对话、图像生成、图像编辑、联网搜索、深度思考，集成号池并发与自动负载均衡。
 
 ## ✨ 核心功能
@@ -8,7 +20,7 @@
 
 - **多 Key 管理与持久化**：支持管理员批量创建、备注、删除 API Key，支持多选批量操作。所有密钥均实现持久化存储，重启不丢失。
 - **日志审计支持**：实时记录请求细节，且日志数据支持文件持久化存储。
-- **并发性能优化 (Critical)**：重构了底层的 Grok 请求和响应处理逻辑。采用全异步流式迭代 (`aiter_lines`)，彻底解决了在消息生成过程中后台管理面板“卡死”或响应缓慢的问题。
+- **并发性能优化（关键）**：重构了底层的 Grok 请求和响应处理逻辑。采用全异步流式迭代 (`aiter_lines`)，缓解消息生成过程中后台管理面板“卡死”或响应缓慢的问题。
 - **Token 智能冷却**：请求失败后自动冷却，避免连续使用故障 Token
   - 普通错误：冷却 5 次请求
   - 429 限流 + 有额度：冷却 1 小时
@@ -82,6 +94,13 @@ curl https://你的服务器地址/v1/chat/completions \
 ```bash
 git clone https://github.com/Tomiya233/grok2api.git
 cd grok2api
+```
+
+如果使用本公开 fork：
+
+```bash
+git clone https://github.com/bulingbuling688/grok2api-chatapi-fork.git
+cd grok2api-chatapi-fork
 ```
 
 2. 启动服务
